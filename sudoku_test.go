@@ -87,4 +87,7 @@ func TestBoard_Print(t *testing.T) {
 
 	fmt.Println("Printing solution of Sudoku to stdout")
 	s.Print()
+
+	fmt.Println("Solution:", s.Solution)
+	fmt.Println("Backtracking:", s.Backtracking)
 }

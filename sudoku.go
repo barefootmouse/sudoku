@@ -14,7 +14,7 @@ type Board struct {
 	Puzzle       string // Holds the puzzle of the Sudoku
 	Solution     string // Holds the solution of the Sudoku
 	Backtracking uint   // Amount of recursive call's made by Solve()
-	Solvable     bool   // Will be true if Sudoku has been solved
+	Solved       bool   // Will be true if Sudoku has been solved
 	Cells        []Cell // Each individual cell of the Sudoku board
 }
 
@@ -196,6 +196,7 @@ func (b *Board) Solve() bool {
 					number.Solved = true
 					number.Digit = d
 
+					b.Backtracking++
 					if b.Solve() {
 						return true
 					}
@@ -207,6 +208,14 @@ func (b *Board) Solve() bool {
 			return false
 		}
 	}
+
+	b.Solved = true
+
+	var s strings.Builder
+	for _, v := range b.Cells {
+		s.WriteString(strconv.Itoa(v.Digit))
+	}
+	b.Solution = s.String()
 
 	return true
 }

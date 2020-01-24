@@ -13,6 +13,7 @@ import (
 type Board struct {
 	Puzzle       string // Holds the puzzle of the Sudoku
 	Solution     string // Holds the solution of the Sudoku
+	Level        int    // The difficulty level of the Sudoku
 	Backtracking uint   // Amount of recursive call's made by Solve()
 	Solved       bool   // Will be true if Sudoku has been solved
 	Cells        []Cell // Each individual cell of the Sudoku board
@@ -27,6 +28,18 @@ type Cell struct {
 }
 
 const size int = 9 // Amount of rows/columns in a Sudoku
+
+const (
+	LevelDiabolic int = 17
+	LevelExtreme  int = 18
+	LevelExpert   int = 20
+	LevelVeryHard int = 24
+	LevelHard     int = 28
+	LevelMedium   int = 30
+	LevelEasy     int = 32
+	LevelVeryEasy int = 36
+	LevelUnknown  int = 0
+)
 
 // NewLevel generates a Sudoku, with level amount of digits filled.
 // Returns an error when level is smaller than 17 or larger than 80.
@@ -74,6 +87,8 @@ func (b *Board) NewLevel(level int) error {
 	}
 	b.Puzzle = puzzle.String()
 
+	b.determineLevel()
+
 	return nil
 
 }
@@ -102,6 +117,8 @@ func (b *Board) NewPuzzle(puzzle string) error {
 			counter++
 		}
 	}
+
+	b.determineLevel()
 
 	return nil
 }
@@ -138,6 +155,36 @@ func (b *Board) Print() {
 		}
 	}
 	fmt.Println()
+}
+
+func (b *Board) determineLevel() {
+	level := 0
+	for _, value := range b.Cells {
+		if value.Digit != 0 {
+			level++
+		}
+	}
+
+	switch level {
+	case LevelDiabolic:
+		b.Level = LevelDiabolic
+	case LevelExtreme:
+		b.Level = LevelExtreme
+	case LevelExpert:
+		b.Level = LevelExpert
+	case LevelVeryHard:
+		b.Level = LevelVeryHard
+	case LevelHard:
+		b.Level = LevelHard
+	case LevelMedium:
+		b.Level = LevelMedium
+	case LevelEasy:
+		b.Level = LevelEasy
+	case LevelVeryEasy:
+		b.Level = LevelVeryEasy
+	default:
+		b.Level = LevelUnknown
+	}
 }
 
 // isSafe returns true if number isn't found in the row, column or box.

@@ -48,7 +48,7 @@ func TestBoard_NewLevel(t *testing.T) {
 	rand.Seed(42)
 
 	s := Board{}
-	err := s.NewLevel(17)
+	err := s.NewLevel(LevelDiabolic)
 	if err != nil {
 		t.Error(err.Error())
 	}
@@ -70,6 +70,54 @@ func TestBoard_NewLevel(t *testing.T) {
 	err = s.NewLevel(82)
 	if err == nil {
 		t.Error("Using 82 as level should fail")
+	}
+
+	s = Board{}
+	err = s.NewLevel(LevelExtreme)
+	if err != nil {
+		t.Error(err.Error())
+	}
+
+	s = Board{}
+	err = s.NewLevel(LevelExpert)
+	if err != nil {
+		t.Error(err.Error())
+	}
+
+	s = Board{}
+	err = s.NewLevel(LevelVeryHard)
+	if err != nil {
+		t.Error(err.Error())
+	}
+
+	s = Board{}
+	err = s.NewLevel(LevelHard)
+	if err != nil {
+		t.Error(err.Error())
+	}
+
+	s = Board{}
+	err = s.NewLevel(LevelMedium)
+	if err != nil {
+		t.Error(err.Error())
+	}
+
+	s = Board{}
+	err = s.NewLevel(LevelEasy)
+	if err != nil {
+		t.Error(err.Error())
+	}
+
+	s = Board{}
+	err = s.NewLevel(LevelVeryEasy)
+	if err != nil {
+		t.Error(err.Error())
+	}
+
+	s = Board{}
+	err = s.NewLevel(40)
+	if err != nil {
+		t.Error(err.Error())
 	}
 }
 

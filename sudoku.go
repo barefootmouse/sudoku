@@ -30,15 +30,15 @@ type Cell struct {
 const size int = 9 // Amount of rows/columns in a Sudoku
 
 const (
-	LevelDiabolic int = 17
-	LevelExtreme  int = 18
-	LevelExpert   int = 20
-	LevelVeryHard int = 24
-	LevelHard     int = 28
-	LevelMedium   int = 30
-	LevelEasy     int = 32
-	LevelVeryEasy int = 36
-	LevelUnknown  int = 0
+	LevelDiabolic int = 17 // Diabolic puzzle
+	LevelExtreme  int = 18 // Extreme puzzle
+	LevelExpert   int = 20 // Expert puzzle
+	LevelVeryHard int = 24 // Very Hard puzzle
+	LevelHard     int = 28 // Hard puzzle
+	LevelMedium   int = 30 // Medium puzzle
+	LevelEasy     int = 32 // Easy puzzle
+	LevelVeryEasy int = 36 // Very Easy puzzle
+	LevelUnknown  int = 0  // Unknown difficulty puzzle
 )
 
 // NewLevel generates a Sudoku, with level amount of digits filled.
@@ -157,6 +157,7 @@ func (b *Board) Print() {
 	fmt.Println()
 }
 
+// determineLevel determines the difficulty of the Sudoku puzzle.
 func (b *Board) determineLevel() {
 	level := 0
 	for _, value := range b.Cells {
@@ -202,6 +203,7 @@ func (b *Board) inRow(row, number int) bool {
 	return false
 }
 
+// row returns a []Cell for the given row.
 func (b *Board) row(row int) []Cell {
 	var c []Cell
 
@@ -224,6 +226,7 @@ func (b *Board) inColumn(column, number int) bool {
 	return false
 }
 
+// column returns a []Cell for the given column.
 func (b *Board) column(column int) []Cell {
 	var c []Cell
 
@@ -236,7 +239,7 @@ func (b *Board) column(column int) []Cell {
 	return c
 }
 
-// inBox returns true if number is in the box (3x3)
+// inBox returns true if number is in the box (3x3).
 func (b *Board) inBox(row, column, number int) bool {
 	row--
 	column--
@@ -256,6 +259,7 @@ func (b *Board) inBox(row, column, number int) bool {
 	return false
 }
 
+// box returns a []Cell for the given box.
 func (b *Board) box(row, column int) []Cell {
 	var c []Cell
 
@@ -312,6 +316,7 @@ func (b *Board) Solve() bool {
 	return true
 }
 
+// SolveWithOptimizer solves the Sudoku using the specified Optimizer, will return false if Sudoku is unsolvable.
 func (b *Board) SolveWithOptimizer(optimizer Optimizer) bool {
 	return optimizer.Solve()
 }

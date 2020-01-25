@@ -202,6 +202,18 @@ func (b *Board) inRow(row, number int) bool {
 	return false
 }
 
+func (b *Board) row(row int) []Cell {
+	var c []Cell
+
+	for _, v := range b.Cells {
+		if v.Row == row {
+			c = append(c, v)
+		}
+	}
+
+	return c
+}
+
 // inColumn returns true when number is in the column.
 func (b *Board) inColumn(column, number int) bool {
 	for _, v := range b.Cells {
@@ -210,6 +222,18 @@ func (b *Board) inColumn(column, number int) bool {
 		}
 	}
 	return false
+}
+
+func (b *Board) column(column int) []Cell {
+	var c []Cell
+
+	for _, v := range b.Cells {
+		if v.Column == column {
+			c = append(c, v)
+		}
+	}
+
+	return c
 }
 
 // inBox returns true if number is in the box (3x3)
@@ -230,6 +254,27 @@ func (b *Board) inBox(row, column, number int) bool {
 	}
 
 	return false
+}
+
+func (b *Board) box(row, column int) []Cell {
+	var c []Cell
+
+	row--
+	column--
+
+	rowMin := (row - (row % 3)) + 1
+	columnMin := (column - (column % 3)) + 1
+
+	rowMax := rowMin + 3
+	columnMax := columnMin + 3
+
+	for _, v := range b.Cells {
+		if v.Row >= rowMin && v.Row < rowMax && v.Column >= columnMin && v.Column < columnMax {
+			c = append(c, v)
+		}
+	}
+
+	return c
 }
 
 // Solve solves the Sudoku, will return false if Sudoku is unsolvable.
@@ -265,4 +310,8 @@ func (b *Board) Solve() bool {
 	b.Solution = s.String()
 
 	return true
+}
+
+func (b *Board) SolveWithOptimizer(optimizer Optimizer) bool {
+	return optimizer.Solve()
 }

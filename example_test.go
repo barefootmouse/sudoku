@@ -44,3 +44,21 @@ func ExampleBoard_NewPuzzle() {
 		fmt.Println("Sudoku is unsolvable.")
 	}
 }
+
+func ExampleBoard_SolveWithOptimizer() {
+	s := sudoku.Board{}
+
+	err := s.NewPuzzle("800000000003600000070090200050007000000045700000100030001000068008500010090000400")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	optimizer := sudoku.HeatMap{Board: &s}
+	s.Print()
+
+	if s.SolveWithOptimizer(&optimizer) == true {
+		s.Print()
+	} else {
+		fmt.Println("Sudoku is unsolvable.")
+	}
+}

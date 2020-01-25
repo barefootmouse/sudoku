@@ -139,3 +139,46 @@ func TestBoard_Print(t *testing.T) {
 	fmt.Println("Solution:", s.Solution)
 	fmt.Println("Backtracking:", s.Backtracking)
 }
+
+func TestBoard_SolveWithOptimizer(t *testing.T) {
+	s := Board{}
+	err := s.NewPuzzle("000070065000050000001000000800000000007000050002000000000100002070800049000200070")
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	optimizer := Scanner{
+		Board:   &s,
+		Reverse: true,
+	}
+
+	fmt.Println("Printing puzzle of Sudoku to stdout")
+	s.Print()
+
+	s.SolveWithOptimizer(&optimizer)
+
+	fmt.Println("Printing solution of Sudoku to stdout")
+	s.Print()
+
+	fmt.Println("Solution:", s.Solution)
+	fmt.Println("Backtracking:", s.Backtracking)
+
+	s = Board{}
+	err = s.NewPuzzle("000070065000050000001000000800000000007000050002000000000100002070800049000200070")
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+
+	fmt.Println("Printing puzzle of Sudoku to stdout")
+	s.Print()
+
+	optimizerHM := HeatMap{Board: &s}
+	s.SolveWithOptimizer(&optimizerHM)
+
+	fmt.Println("Printing solution of Sudoku to stdout")
+	s.Print()
+
+	fmt.Println("Solution:", s.Solution)
+	fmt.Println("Backtracking:", s.Backtracking)
+
+}

@@ -29,16 +29,17 @@ type Cell struct {
 
 const size int = 9 // Amount of rows/columns in a Sudoku
 
+// Difficulty level of Sudoku puzzle
 const (
-	LevelDiabolic int = 17 // Diabolic puzzle
-	LevelExtreme  int = 18 // Extreme puzzle
-	LevelExpert   int = 20 // Expert puzzle
-	LevelVeryHard int = 24 // Very Hard puzzle
-	LevelHard     int = 28 // Hard puzzle
-	LevelMedium   int = 30 // Medium puzzle
-	LevelEasy     int = 32 // Easy puzzle
-	LevelVeryEasy int = 36 // Very Easy puzzle
-	LevelUnknown  int = 0  // Unknown difficulty puzzle
+	LevelDiabolic int = 17
+	LevelExtreme  int = 18
+	LevelExpert   int = 20
+	LevelVeryHard int = 24
+	LevelHard     int = 28
+	LevelMedium   int = 30
+	LevelEasy     int = 32
+	LevelVeryEasy int = 36
+	LevelUnknown  int = 0
 )
 
 // NewLevel generates a Sudoku, with level amount of digits filled.

@@ -1,4 +1,5 @@
 [![codecov](https://codecov.io/gh/barefootmouse/sudoku/branch/master/graph/badge.svg)](https://codecov.io/gh/barefootmouse/sudoku)
+[![Go Report Card](https://goreportcard.com/badge/github.com/barefootmouse/sudoku)(https://goreportcard.com/report/github.com/barefootmouse/sudoku)
 [![Build Status](https://travis-ci.com/barefootmouse/sudoku.svg?branch=master)](https://travis-ci.com/barefootmouse/sudoku)
 [![godoc](https://godoc.org/github.com/barefootmouse/sudoku?status.png)](https://godoc.org/github.com/barefootmouse/sudoku)
 

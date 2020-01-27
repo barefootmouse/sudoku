@@ -13,7 +13,7 @@ import (
 type Board struct {
 	Puzzle       string // Holds the puzzle of the Sudoku
 	Solution     string // Holds the solution of the Sudoku
-	Level        int    // The difficulty level of the Sudoku
+	Level        Level  // The difficulty level of the Sudoku
 	Backtracking uint   // Amount of recursive call's made by Solve()
 	Solved       bool   // Will be true if Sudoku has been solved
 	Cells        []Cell // Each individual cell of the Sudoku board
@@ -29,23 +29,25 @@ type Cell struct {
 
 const size int = 9 // Amount of rows/columns in a Sudoku
 
+type Level int
+
 // Difficulty level of Sudoku puzzle
 const (
-	LevelDiabolic int = 17
-	LevelExtreme  int = 18
-	LevelExpert   int = 20
-	LevelVeryHard int = 24
-	LevelHard     int = 28
-	LevelMedium   int = 30
-	LevelEasy     int = 32
-	LevelVeryEasy int = 36
-	LevelUnknown  int = 0
+	Diabolic Level = 17
+	Extreme  Level = 18
+	Expert   Level = 20
+	VeryHard Level = 24
+	Hard     Level = 28
+	Medium   Level = 30
+	Easy     Level = 32
+	VeryEasy Level = 36
+	Unknown  Level = 0
 )
 
 // NewLevel generates a Sudoku, with level amount of digits filled.
 // Returns an error when level is smaller than 17 or larger than 80.
 // Make sure to properly seed math/rand before calling this method.
-func (b *Board) NewLevel(level int) error {
+func (b *Board) NewLevel(l Level) error {
 
 	// Create an empty board
 	for row := 1; row <= size; row++ {
@@ -60,13 +62,13 @@ func (b *Board) NewLevel(level int) error {
 	}
 
 	// A Sudoku requires at least 17 digits and at most 80 digits
-	if level < 17 || level > 80 {
+	if l < 17 || l > 80 {
 		return errors.New("level should be between 17 and 80")
 	}
 
 	// Fill the board with random values
 	counter := 0
-	for counter < level {
+	for counter < int(l) {
 		// 81 cells in the board
 		cell := rand.Intn(81)
 
@@ -160,32 +162,32 @@ func (b *Board) Print() {
 
 // determineLevel determines the difficulty of the Sudoku puzzle.
 func (b *Board) determineLevel() {
-	level := 0
+	l := 0
 	for _, value := range b.Cells {
 		if value.Digit != 0 {
-			level++
+			l++
 		}
 	}
 
-	switch level {
-	case LevelDiabolic:
-		b.Level = LevelDiabolic
-	case LevelExtreme:
-		b.Level = LevelExtreme
-	case LevelExpert:
-		b.Level = LevelExpert
-	case LevelVeryHard:
-		b.Level = LevelVeryHard
-	case LevelHard:
-		b.Level = LevelHard
-	case LevelMedium:
-		b.Level = LevelMedium
-	case LevelEasy:
-		b.Level = LevelEasy
-	case LevelVeryEasy:
-		b.Level = LevelVeryEasy
+	switch Level(l) {
+	case Diabolic:
+		b.Level = Diabolic
+	case Extreme:
+		b.Level = Extreme
+	case Expert:
+		b.Level = Expert
+	case VeryHard:
+		b.Level = VeryHard
+	case Hard:
+		b.Level = Hard
+	case Medium:
+		b.Level = Medium
+	case Easy:
+		b.Level = Easy
+	case VeryEasy:
+		b.Level = VeryEasy
 	default:
-		b.Level = LevelUnknown
+		b.Level = Unknown
 	}
 }
 

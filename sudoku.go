@@ -29,9 +29,9 @@ type Cell struct {
 
 const size int = 9 // Amount of rows/columns in a Sudoku
 
+// Difficulty level of Sudoku puzzle
 type Level int
 
-// Difficulty level of Sudoku puzzle
 const (
 	Diabolic Level = 17
 	Extreme  Level = 18

@@ -70,29 +70,18 @@ func (o *HeatMap) Solve() bool {
 		o.heatmap = make(map[int][]*Cell)
 
 		for k, v := range o.Board.Cells {
-			heat := 0
+			heat := func(cells ...[]Cell) int {
+				h := 0
 
-			r := o.Board.row(v.Row)
-			c := o.Board.column(v.Column)
-			b := o.Board.box(v.Row, v.Column)
-
-			for _, rv := range r {
-				if rv.Digit != 0 {
-					heat++
+				for _, cell := range cells {
+					for _, v := range cell {
+						if v.Digit != 0 {
+							h++
+						}
+					}
 				}
-			}
-
-			for _, vc := range c {
-				if vc.Digit != 0 {
-					heat++
-				}
-			}
-
-			for _, vb := range b {
-				if vb.Digit != 0 {
-					heat++
-				}
-			}
+				return h
+			}(o.Board.row(v.Row), o.Board.column(v.Column), o.Board.box(v.Row, v.Column))
 
 			o.heatmap[heat] = append(o.heatmap[heat], &o.Board.Cells[k])
 		}
@@ -104,10 +93,8 @@ func (o *HeatMap) Solve() bool {
 
 	}
 
-	//fmt.Println(o.heatmap)
 	for key := range o.mapkeys {
 		key = o.mapkeys[len(o.mapkeys)-1-key]
-		//fmt.Printf("%v: %v\n", key, o.heatmap[key])
 
 		for _, value := range o.heatmap[key] {
 			if !value.Solved {

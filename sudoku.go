@@ -160,6 +160,23 @@ func (b *Board) Print() {
 	fmt.Println()
 }
 
+// Validate will return true when Sudoku each digit only appears 9 times.
+func (b *Board) Validate() bool {
+	v := make(map[int]int)
+
+	for _, value := range b.Cells {
+		v[value.Digit] += 1
+	}
+
+	for key := range v {
+		if v[key] != 9 {
+			return false
+		}
+	}
+
+	return true
+}
+
 // determineLevel determines the difficulty of the Sudoku puzzle.
 func (b *Board) determineLevel() {
 	l := 0

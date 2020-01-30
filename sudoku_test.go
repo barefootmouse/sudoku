@@ -138,6 +138,9 @@ func TestBoard_Print(t *testing.T) {
 
 	fmt.Println("Solution:", s.Solution)
 	fmt.Println("Backtracking:", s.Backtracking)
+	if s.Validate() {
+		fmt.Println("Sudoku is valid!")
+	}
 }
 
 func TestBoard_SolveWithOptimizer(t *testing.T) {
@@ -177,8 +180,27 @@ func TestBoard_SolveWithOptimizer(t *testing.T) {
 
 	fmt.Println("Printing solution of Sudoku to stdout")
 	s.Print()
+	s.Validate()
 
 	fmt.Println("Solution:", s.Solution)
 	fmt.Println("Backtracking:", s.Backtracking)
 
+	s = Board{}
+	err = s.NewPuzzle("777770065000050000001000000800777000007000050002000000000100002070800049000200070")
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+	s.Validate()
+
+	s = Board{}
+	err = s.NewPuzzle("000070065000050000001000000800000000007000050002000000000100002070800049000200070")
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+	s.Print()
+	oHM := HeatMap{Board: &s}
+	s.SolveWithOptimizer(&oHM)
+	s.Print()
+	fmt.Println("Solution:", s.Solution)
+	fmt.Println("Backtracking:", s.Backtracking)
 }

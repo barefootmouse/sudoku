@@ -29,9 +29,10 @@ type Cell struct {
 
 const size int = 9 // Amount of rows/columns in a Sudoku
 
-// Difficulty level of Sudoku puzzle
+// Level is the difficulty level of the Sudoku.
 type Level int
 
+// Difficulty Level's
 const (
 	Diabolic Level = 17
 	Extreme  Level = 18
@@ -165,7 +166,7 @@ func (b *Board) Validate() bool {
 	v := make(map[int]int)
 
 	for _, value := range b.Cells {
-		v[value.Digit] += 1
+		v[value.Digit]++
 	}
 
 	for key := range v {
